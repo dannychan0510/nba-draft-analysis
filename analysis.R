@@ -35,7 +35,13 @@ dB <- dB[complete.cases(dB$Rk), ]
 row.names(dB) <- NULL
 
 # Keep only players who were drafted in between 1970 - 2010
-dB.ss <- dB[dB$Year >= 1970 & dB$Year <= 2010, ]
+dB.ss <- dB[dB$Year >= 1980 & dB$Year <= 2010 & dB$Rd == 1, ]
 
+# Load ggplot2 library
 library(ggplot2)
-ggplot(dB.ss, aes(x=Pk, y=PTS)) + geom_point(shape=1) 
+library(ggthemes)
+
+# Analyzing stats for players drafted in the first round
+ggplot(data = dB.ss, aes(x = Pk, y = PTS)) + geom_point(shape = 1) + geom_smooth() + ggtitle("Points Per Game Against Position in Draft") + xlab("Position in Draft Pick") + ylab("Points Per Game") + theme_minimal()
+
+ggplot(data = dB.ss, aes(x = Pk, y = WS)) + geom_point(shape = 1) + geom_smooth() + ggtitle("Win Share Against Position in Draft") + xlab("Position in Draft Pick") + ylab("Win Share") + theme_minimal()
